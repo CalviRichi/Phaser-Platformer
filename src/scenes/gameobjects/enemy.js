@@ -62,16 +62,7 @@ export class Enemy extends Phaser.GameObjects.PathFollower {
 
         super.preUpdate(time, delta);
         let dt = delta / 1000;
-        /*
-        const dx = this.target.x - this.x;
-        const dy = this.target.y - this.y;
-        const angle = Math.atan2(dy,dx);
-        this.rotation = angle+2*Math.PI/2;
-        if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
-            this.x += Math.cos(angle)*this.speed*dt;
-            this.x += Math.sin(angle)*this.speed*dt;
-        } 
-        */
+        
         if (this.last_attack + this.attack_rate < time && this.can_fire) {
         this.last_attack = time;
         let b = new Bullet(

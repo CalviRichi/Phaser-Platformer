@@ -1,2 +1,21 @@
 Platformer Project - Calvin Richards, Keyan Premji
 
+Layers for a platformer: 
+    ground, background, decoration, hazard (?)
+    Figure out tile size and parallax for background 
+
+Every tile can have its own properties, for instance in Tiled you can select some spikes and give them
+the special property "damage" which you can then read in phaser.
+
+SCENES:
+    Title Screen, Playing, End 
+
+Player movement:
+    acceleration for holding direction, eventual max speed
+    press space to jump, that needs acceleration too
+
+Special game mechanics: gravity switching and moving platforms! Will there be enemies? If so then there should be 
+attacking mechanics, jumping on their heads? powerups like fire flower in mario?
+
+Should use animations, will figure out more after the "juice" lecture. 
+There will probably be keys and things to unlock, like wall jumping. 
