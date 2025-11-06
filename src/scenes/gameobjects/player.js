@@ -14,12 +14,14 @@ export class Player extends Phaser.GameObjects.Sprite {
               configurable: false // Prevents deletion or modification of the property's attributes
         });
 
+        // Probably do more object define property for other things
+
+        // define physics and scene attributes
         scene.add.existing(this);  
         scene.physics.add.existing(this); 
         scene.player.body.setCollideWorldBounds(true);
-        
 
-
+        // define local attributes
         this.hp;
         this.x = x; this.y = y;
 
@@ -28,37 +30,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.jump = false;
         this.left = false;
         this.right = false;
-
-        // currently no local variables
-        
-        /* this could be used for a character select still
-        switch (mode) {
-            case "ship_1": // easy
-                this.hp = 100;
-                this.speed = 500;
-                this.damage = 5;
-                this.bullet_speed = 1100;
-                break;
-            case "ship_2":
-                this.hp = 75;
-                this.speed = 450;
-                this.damage = 4;
-                this.bullet_speed = 1000;
-                break;
-            case "ship_3":
-                this.hp = 50;
-                this.speed = 400;
-                this.damage = 3;
-                this.bullet_speed = 900;
-                break;
-            default:
-                this.hp = 100;
-                this.speed = 500;
-                this.damage = 5;
-                this.bullet_speed = 1100;
-                break;
-        }
-        */
 
     }
     preUpdate(time, delta) {
@@ -79,5 +50,11 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         // this.physics.overlap(player, item, item collect callback)
         
+    }
+    update() {
+        /*
+        I think it makes more sense to just write my own update function, since there is no automated movement or anything
+        Preupdate can be reserved for stuff relating to gravity
+        */
     }
 }

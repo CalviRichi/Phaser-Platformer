@@ -8,7 +8,7 @@ Every tile can have its own properties, for instance in Tiled you can select som
 the special property "damage" which you can then read in phaser.
 
 SCENES:
-    Title Screen, Playing, End 
+    Start, Playing, End 
 
 Player movement:
     acceleration for holding direction, eventual max speed
@@ -19,3 +19,9 @@ attacking mechanics, jumping on their heads? powerups like fire flower in mario?
 
 Should use animations, will figure out more after the "juice" lecture. 
 There will probably be keys and things to unlock, like wall jumping. 
+
+FILE LAYOUT:
+    player.js handles all player functions, that means it will receive flags
+    movement, health management, etc...
+
+    
