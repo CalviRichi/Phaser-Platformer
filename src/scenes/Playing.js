@@ -14,7 +14,9 @@ export class Playing extends Phaser.Scene {
     }
 
     preload() {
-
+        this.load.image("tilesheet", "assets/tilemap_packed.png");
+        this.load.image("bee", "assets/bee.png")
+        this.load.tilemapTiledJSON("tiles", "assets/platformer.tmj");
     }
     create() {
         this.last_time = 0;
@@ -23,13 +25,13 @@ export class Playing extends Phaser.Scene {
 
         this.map = this.add.tilemap("tiles");
 
-        var tileset = this.map.addTilesetImage("landscape", "tilesheet"); // the first param must match what it says in Tiled
+        var tileset = this.map.addTilesetImage("platformer", "tilesheet"); // the first param must match what it says in Tiled
 
         // the code below WILL NOT WORK until there is a matching tilemap, which there is not currently
         var ground = this.map.createLayer("ground", tileset, 0, 0); // layer names must also match
-        var background = this.map.createLayer("background", tileset, 0,0);
+       // var background = this.map.createLayer("background", tileset, 0,0);
         var decoration = this.map.createLayer("decoration", tileset, 0,0);
-        var hazards = this.map.createLayer("hazards", tileset, 0, 0); // x and y can be 0 here
+        var hazards = this.map.createLayer("danger", tileset, 0, 0); // x and y can be 0 here
 
         // backgroundlayer.setCullPadding(3,3) for big tiles in the background to not dissapear
         ground.setCollisionBetween(1,1767); // for something like the obstacles, this is just from 1 to however many tiles there are 

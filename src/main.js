@@ -19,7 +19,7 @@ const config = {
         }
     },
     scene: [
-        Start, Playing, End
+        Playing, End
     ],
     scale: {
         mode: Phaser.Scale.FIT,

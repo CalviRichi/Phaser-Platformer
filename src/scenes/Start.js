@@ -10,10 +10,8 @@ export class Start extends Phaser.Scene {
 
     preload() {
         
-        this.load.image("tilesheet", "assets/tilesheet.png");
-        this.load.image("bee", "assets/bee.png")
-        this.load.tilemapTiledJSON("tiles", "assets/tilemap2.tmj");
-
+        
+        //this.load.tilemapLayer('map', "assets/platformer.tsx");
         // figure out what other assets we want
 
     }
