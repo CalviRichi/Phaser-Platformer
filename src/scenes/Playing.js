@@ -42,7 +42,9 @@ export class Playing extends Phaser.Scene {
 
         let left = this.input.keyboard.addKey("A", false, true);
         let right = this.input.keyboard.addKey("D", false, true);
-        this.keyStates = {a: left, d: right, space: "", comma: ""}; // space (and comma) will be defined in the update stage
+        let jump = this.input.keyboard.addKey("SPACE", false, true);
+        let attack = this.input.keyboard.addKey("COMMA", false, true);
+        this.keyStates = {a: left, d: right, space: jump, comma: attack}; // space (and comma) will be defined in the update stage
         // a convenient way to pass these values to other functions
 
         // ----------------- CAMERA SETUP --------------------------
@@ -73,6 +75,7 @@ export class Playing extends Phaser.Scene {
         // ALL SCENE LOGIC LIVES HERE
 
         // update keyboard
+        this.player.update(keyStates);
         
         
     }

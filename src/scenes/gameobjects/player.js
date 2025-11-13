@@ -27,9 +27,11 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         // locally manage movement by having flags in the player class
 
-        this.jump = false;
-        this.left = false;
-        this.right = false;
+       // this.jump = false;
+       // this.left = false;
+       // this.right = false;
+
+        this.keys = scene.keyStates;
 
     }
     preUpdate(time, delta) {
@@ -38,6 +40,31 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         //this.body.setVelocityX and Y
         // this.body.touching.down etc...
+
+        //  DO COYOTE TIME CHECK
+        // use coyote time variable for jumps
+
+        this.keys = scene.keyStates;
+        if (Phaser.Input.Keyboard.JustDown(keyStates.space) && this.body.touching.down) {
+            this.setVelocityY(-500);
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyStates.comma)) {
+// NULL
+        }
+
+        if (keyStates.a) {
+            this.setAccelerationX(-600);
+            this.setFlipX(true);
+        }
+        else if (keyStates.d) {
+            this.setAccelerationX(600);
+            this.setFlipX(false); // might need to change depending on the sprite we use
+        }
+        else {
+            this.setAccelerationX(0);
+            this.setDragX(800);
+        }
+
         if (this.left) {
             this.x -= 10;
         }
@@ -51,10 +78,12 @@ export class Player extends Phaser.GameObjects.Sprite {
         // this.physics.overlap(player, item, item collect callback)
         
     }
-    update() {
+    update(keyStates) {
         /*
         I think it makes more sense to just write my own update function, since there is no automated movement or anything
         Preupdate can be reserved for stuff relating to gravity
         */
+       // keystates contains the values for a, d, space, and comma
+       
     }
 }
