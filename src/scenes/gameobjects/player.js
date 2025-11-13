@@ -1,6 +1,4 @@
-
 // PLAYER.JS WRITTEN BY CALVIN RICHARDS
-
 export class Player extends Phaser.GameObjects.Sprite {
     
     constructor(scene, x, y, sprite) { // mode affects ship and stats
@@ -17,18 +15,18 @@ export class Player extends Phaser.GameObjects.Sprite {
         // Probably do more object define property for other things
 
         // define physics and scene attributes
-        scene.add.existing(this);  
-        scene.physics.add.existing(this); 
-        this.body.setCollideWorldBounds(true);
-        this.setBounce(0.1);
-        this.setMaxVelocity(300, 600); // used inside of setAcceleration
-        this.setDragX(600); // also used inside of setAcceleration
+        this.scene = scene;
+        this.scene.add.existing(this);  
+        this.scene.physics.add.existing(this); 
 
+        this.body.setCollideWorldBounds(true);
+        this.body.setBounce(0.1);
+        this.body.setMaxVelocity(300, 600); // used inside of setAcceleration
+        this.body.setDragX(600); // also used inside of setAcceleration
 
         // define local attributes
         this.hp;
         this.x = x; this.y = y; // not directly used 
-
         this.keys = scene.keyStates;
 
     }
@@ -36,28 +34,28 @@ export class Player extends Phaser.GameObjects.Sprite {
         super.preUpdate(time, delta);
         let dt = delta/1000;
 
-        //  DO COYOTE TIME CHECK
+        // DO COYOTE TIME CHECK
         // use coyote time variable for jumps
-
-        this.keys = scene.keyStates;
-        if (Phaser.Input.Keyboard.JustDown(keyStates.space) && this.body.touching.down) {
-            this.setVelocityY(-500);
+        
+        //this.keys = this.scene.keyStates;
+        if (Phaser.Input.Keyboard.JustDown(this.keys.space) && this.body.blocked.down) {
+            console.log("space");
+            this.body.setVelocityY(-500);
         }
-        if (Phaser.Input.Keyboard.JustDown(keyStates.comma)) {
+        if (Phaser.Input.Keyboard.JustDown(this.keys.comma)) {
             // NULL
         }
-
-        if (keyStates.a.isDown) {
-            this.setAccelerationX(-600);
-            this.setFlipX(true);
+        if (this.keys.a.isDown) {
+            this.body.setAccelerationX(-600);
+            this.setFlipX(false);
         }
-        else if (keyStates.d.isDown) {
-            this.setAccelerationX(600);
-            this.setFlipX(false); // might need to change depending on the sprite we use
+        else if (this.keys.d.isDown) {
+            this.body.setAccelerationX(300);
+            this.setFlipX(true); // might need to change depending on the sprite we use
         }
         else {
-            this.setAccelerationX(0);
-            this.setDragX(800);
+            this.body.setAccelerationX(0);
+            this.body.setDragX(800);
         }
 
         // this.physics.overlap(player, item, item collect callback)

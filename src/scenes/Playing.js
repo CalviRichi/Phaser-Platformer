@@ -34,13 +34,11 @@ export class Playing extends Phaser.Scene {
         var hazards = this.map.createLayer("danger", tileset, 0, 0); // x and y can be 0 here
 
         // backgroundlayer.setCullPadding(3,3) for big tiles in the background to not dissapear
-        ground.setCollisionBetween(1,1767); // for something like the obstacles, this is just from 1 to however many tiles there are 
-        
+        ground.setCollisionBetween(0,1000); // for something like the obstacles, this is just from 1 to however many tiles there are 
+        // 50 * 100 * 18 = 90,0000
         // ------------------- MEMBER OBJECT SETUP ----------------------------
-
-        this.player = new Player(this, 300, 300, "bee");
-        
-        this.world = {ground: ground, background: background, decoration: decoration, hazards: hazards};
+        // background : background
+        this.world = {ground: ground, decoration: decoration, hazards: hazards};
 
         let left = this.input.keyboard.addKey("A", false, true);
         let right = this.input.keyboard.addKey("D", false, true);
@@ -49,6 +47,7 @@ export class Playing extends Phaser.Scene {
         this.keyStates = {a: left, d: right, space: jump, comma: attack}; // space (and comma) will be defined in the update stage
         // a convenient way to pass these values to other functions
 
+        this.player = new Player(this, 300, 300, "bee");
         // ----------------- CAMERA SETUP --------------------------
 
         // this.cameras.main.centerOn(this.player.x, this.player.y); // follow player
@@ -58,13 +57,14 @@ export class Playing extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true); // with deadzone
         this.cameras.main.setDeadzone(400,200);
         // Camera like Mario ^^^
+        this.cameras.main.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels);
 
         // -------------- PHYSICS SETUP --------------------------- 
 
         // this.physics.add.collider(player, layer, () => {
         //    } ); like in the shooter
-
-        this.physics.add.collider(ground, this.player); // default callback
+        this.physics.world.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels);
+        this.physics.add.collider(this.player, ground); // default callback
 
         // this.platform = this.physics.add.staticGroup();
         // this.platform.create(400,500,sprite);
@@ -77,7 +77,7 @@ export class Playing extends Phaser.Scene {
         // ALL SCENE LOGIC LIVES HERE
 
         // update keyboard
-        this.player.update(keyStates);
+        this.player.update(this.keyStates);
         
         
     }

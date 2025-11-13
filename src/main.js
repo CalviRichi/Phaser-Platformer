@@ -14,12 +14,12 @@ const config = {
     physics: {
         default: "arcade",
         arcade: {
-            gravity: {y: 300},
+            gravity: {y: 600},
             debug: false
         }
     },
     scene: [
-        Playing, End
+        Start, Playing, End
     ],
     scale: {
         mode: Phaser.Scale.FIT,
