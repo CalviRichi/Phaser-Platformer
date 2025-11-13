@@ -193,8 +193,30 @@
  "tileheight":18,
  "tilesets":[
         {
+         "columns":20,
          "firstgid":1,
-         "source":"platformer.tsx"
+         "image":"tilemap_packed.png",
+         "imageheight":162,
+         "imagewidth":360,
+         "margin":0,
+         "name":"platformer",
+         "spacing":0,
+         "tilecount":180,
+         "tileheight":18,
+         "tilewidth":18
+        }, 
+        {
+         "columns":12,
+         "firstgid":181,
+         "image":"tilemap-characters_packed.png",
+         "imageheight":72,
+         "imagewidth":216,
+         "margin":0,
+         "name":"misc",
+         "spacing":0,
+         "tilecount":48,
+         "tileheight":18,
+         "tilewidth":18
         }],
  "tilewidth":18,
  "type":"map",
