@@ -19,17 +19,15 @@ export class Player extends Phaser.GameObjects.Sprite {
         // define physics and scene attributes
         scene.add.existing(this);  
         scene.physics.add.existing(this); 
-        scene.player.body.setCollideWorldBounds(true);
+        this.body.setCollideWorldBounds(true);
+        this.setBounce(0.1);
+        this.setMaxVelocity(300, 600); // used inside of setAcceleration
+        this.setDragX(600); // also used inside of setAcceleration
+
 
         // define local attributes
         this.hp;
-        this.x = x; this.y = y;
-
-        // locally manage movement by having flags in the player class
-
-       // this.jump = false;
-       // this.left = false;
-       // this.right = false;
+        this.x = x; this.y = y; // not directly used 
 
         this.keys = scene.keyStates;
 
@@ -37,9 +35,6 @@ export class Player extends Phaser.GameObjects.Sprite {
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
         let dt = delta/1000;
-
-        //this.body.setVelocityX and Y
-        // this.body.touching.down etc...
 
         //  DO COYOTE TIME CHECK
         // use coyote time variable for jumps
@@ -49,30 +44,20 @@ export class Player extends Phaser.GameObjects.Sprite {
             this.setVelocityY(-500);
         }
         if (Phaser.Input.Keyboard.JustDown(keyStates.comma)) {
-// NULL
+            // NULL
         }
 
-        if (keyStates.a) {
+        if (keyStates.a.isDown) {
             this.setAccelerationX(-600);
             this.setFlipX(true);
         }
-        else if (keyStates.d) {
+        else if (keyStates.d.isDown) {
             this.setAccelerationX(600);
             this.setFlipX(false); // might need to change depending on the sprite we use
         }
         else {
             this.setAccelerationX(0);
             this.setDragX(800);
-        }
-
-        if (this.left) {
-            this.x -= 10;
-        }
-        else if (this.right) {
-            this.x += 10;
-        }
-        else {
-            this.y -= 30;
         }
 
         // this.physics.overlap(player, item, item collect callback)
