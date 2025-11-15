@@ -28,7 +28,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.hp;
         this.x = x; this.y = y; // not directly used 
         this.keys = scene.keyStates;
-
+        this.jumpHeight = -300;
     }
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
@@ -40,7 +40,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         //this.keys = this.scene.keyStates;
         if (Phaser.Input.Keyboard.JustDown(this.keys.space) && this.body.blocked.down) {
             console.log("space");
-            this.body.setVelocityY(-500);
+            this.body.setVelocityY(this.jumpHeight);
         }
         if (Phaser.Input.Keyboard.JustDown(this.keys.comma)) {
             // NULL
