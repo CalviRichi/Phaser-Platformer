@@ -56,6 +56,7 @@ export class Playing extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.player, true); // with deadzone
         this.cameras.main.setDeadzone(400,200);
+        this.cameras.main.setZoom(1.5);
         // Camera like Mario ^^^
         this.cameras.main.setBounds(0,0,this.map.widthInPixels, this.map.heightInPixels);
 
