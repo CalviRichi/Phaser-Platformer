@@ -1,53 +1,30 @@
 import { Player } from "./gameobjects/player.js";
 
-// will do most of the heavy lifting
-// the scene will manage its objects, but the objects will handle their state
-// i.e this scene will define object interactions, but those objects handle the effects of them
-
-// map layers: ground, background, decoration, hazard
-// moving platforms will be their own entity.
-
-export class Playing extends Phaser.Scene {
-
+export class LevelTwo extends Phaser.Scene {
     constructor() {
-        super("Playing");
-      
+        super("LevelTwo");
+    }
+
+    init(data) {
+        this.score = data[0];
     }
 
     preload() {
-        
+
     }
+
     create() {
-        this.last_time = 0;
-        this.score = 0;
-
-        // --------------- MAP SETUP --------------------------------
-
-        this.map = this.add.tilemap("tiles");
-        var tileset = this.map.addTilesetImage("platformer", "tilesheet");
-
-        let left = this.input.keyboard.addKey("A", false, true);
-        let right = this.input.keyboard.addKey("D", false, true);
-        let jump = this.input.keyboard.addKey("SPACE", false, true);
-        let attack = this.input.keyboard.addKey("COMMA", false, true);
-        let gravityFlip = this.input.keyboard.addKey("S", false, true);
-        this.keyStates = {a: left, d: right, space: jump, comma: attack, s: gravityFlip};
-
-        var ground, decoration, hazards, collectibles, platforms;
-  
-        this.startX = 200;
-        this.startY = 500;
-
-        ground = this.map.createLayer("ground", tileset, 0, 0);
-        decoration = this.map.createLayer("decoration", tileset, 0,0);
-        hazards = this.map.createLayer("danger", tileset, 0, 0);
-        collectibles = this.map.createLayer("collectibles", tileset, 0, 0);
-        platforms = this.map.createLayer("platforms", tileset, 0,0);
-
-        ground.setCollisionBetween(0,1000);
-
-        this.world = {ground: ground, decoration: decoration, hazards: hazards, objects: objects, platforms: platforms};
+        this.startX = 100;
+        this.startY = 400;
             
+        var ground = this.map.createLayer("ground", tileset, 0, 0);
+        var decoration = this.map.createLayer("decoration", tileset, 0,0);
+        var hazards = this.map.createLayer("danger", tileset, 0, 0);
+        var collectibles = this.map.createLayer("collectibles", tileset, 0, 0);
+
+        ground.setCollisionBetween(1, 180);
+        this.world = {ground: ground, decoration: decoration, hazards: hazards, collectibles: collectibles};
+
         this.player = new Player(this, this.startX, this.startY, "bee");
        
         this.coinSound = this.sound.add("coinSound", { volume: 0.5 });
@@ -106,9 +83,7 @@ export class Playing extends Phaser.Scene {
                 }
             });
         }
-
-      
-    }
+    }    
 
     update(time) {
         let dt = (time - this.last_time)/1000;
@@ -125,8 +100,11 @@ export class Playing extends Phaser.Scene {
     }
 
     nextLevel() {
-        this.scene.stop("Playing");
-        this.scene.start("LevelTwo", this.score);
+        
+        this.registry.set('finalScore', this.score);
+        this.scene.stop("LevelTwo");
+        this.scene.start("End"); 
+        return;
     }
 
     levelReset() {
@@ -137,4 +115,5 @@ export class Playing extends Phaser.Scene {
             this.player.body.setGravityY(0);
             this.player.setFlipY(false);
     }
+
 }

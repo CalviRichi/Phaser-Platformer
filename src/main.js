@@ -1,5 +1,6 @@
 import { Start } from './scenes/Start.js';
 import { Playing } from './scenes/Playing.js';
+import { LevelTwo } from "./scenes/LevelTwo.js";
 import { End } from './scenes/End.js';
 
 const config = {
@@ -19,7 +20,7 @@ const config = {
         }
     },
     scene: [
-        Start, Playing, End
+        Start, Playing, LevelTwo, End
     ],
     scale: {
         mode: Phaser.Scale.FIT,

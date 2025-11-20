@@ -13,6 +13,15 @@ export class Start extends Phaser.Scene {
         
         //this.load.tilemapLayer('map', "assets/platformer.tsx");
         // figure out what other assets we want
+        this.load.image("bee", "assets/bee.png")
+        this.load.audio("coinSound", "assets/sounds/coin.mp3");
+        this.load.image("platformTexture", "assets/Tiles/tile_0047.png");
+
+        this.load.image("tilesheet_2", "assets/Tilemap/tilemap.png");
+        this.load.tilemapTiledJSON("tiles_2", "assets/thelevelfile.tmj");
+
+        this.load.image("tilesheet_1", "assets/tilemap_packed.png");
+        this.load.tilemapTiledJSON("tiles_1", "assets/platformer.tmj");
 
     }
 
