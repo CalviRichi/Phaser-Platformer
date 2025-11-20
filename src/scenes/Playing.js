@@ -11,7 +11,7 @@ export class Playing extends Phaser.Scene {
 
     constructor() {
         super("Playing");
-        this.currentLevel = 2;
+        this.currentLevel = 1;
     }
 
     preload() {
@@ -155,6 +155,9 @@ export class Playing extends Phaser.Scene {
             this.player.x = 100;
             this.player.y = 400;
             this.player.body.setVelocity(0, 0);
+            this.player.gravityFlipped = false;
+            this.player.body.setGravityY(0);
+            this.player.setFlipY(false);
         }
         
     }
