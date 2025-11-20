@@ -13,12 +13,23 @@ SCENES:
 PLAYER MOVEMENT:
     Acceleration for holding direction, eventual max speed
     press space to jump, that needs acceleration too
+    press s to switch gravity
 
 SPECIAL GAME MECHANICS: gravity switching and moving platforms! Will there be enemies? If so then there should be 
 attacking mechanics, jumping on their heads? powerups like fire flower in mario?
 
+item pickups: coins (increase score by +1) and diamonds (increase player speed allowing for parkour skips)
+
 Should use animations, will figure out more after the "juice" lecture. 
-There will probably be keys and things to unlock, like wall jumping. 
+Added particle animations for constant player movement AND explosive particle animation for switching gravity
+
+OPTIONAL ELEMENTS:
+Complex Camera
+Not necessarily double jumping but gravity switch :)
+Ways for player to die 
+Power-Up
+
+
 
 FILE LAYOUT:
     player.js handles all player functions, that means it will receive flags
