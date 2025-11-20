@@ -39,3 +39,12 @@ REPOSITORY:
 Below is the shared repository where you can view changes, commit history, etc...
 https://github.com/CalviRichi/Phaser-Platformer 
     
+--
+All of Keyan's work was submitted 2 hours before the deadline and thus
+could not be properly integrated. Changing between levels does not function. 
+Additionally, I (Calvin) waited 5 days waiting for Keyan to push his work
+go github so that I could continue working because otherwise I would face 
+merge conflicts. Because of this much of my implementation is unfinished. 
+I reached out to the professor during this time period and he said to try and 
+hassle my partner to get their work done, but again they didn't submit it 
+until 2 hours before the deadline. 
