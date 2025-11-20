@@ -43,20 +43,24 @@ export class Playing extends Phaser.Scene {
         hazards = this.map.createLayer("danger", tileset, 0, 0);
         collectibles = this.map.createLayer("collectibles", tileset, 0, 0);
         platforms = this.map.createLayer("platforms", tileset, 0,0);
+        
+      
 
         ground.setCollisionBetween(0,1000);
 
         platforms.setCollisionByExclusion([-1]);
+        hazards.setCollisionByExclusion([-1]);
 
         this.tweens.add({
             targets: platforms,
-            x: '+=130',
-            duration: 2000,
+            x: '+=400',
+            duration: 5000,
             yoyo: true,
             repeat: -1
         });
-        
-        this.world = {ground: ground, decoration: decoration, hazards: hazards, objects: objects, platforms: platforms};
+
+        this.prevPlatformX = platforms.x;
+        this.world = {ground: ground, decoration: decoration, hazards: hazards, collectibles: collectibles, platforms: platforms};
             
         this.player = new Player(this, this.startX, this.startY, "bee");
        
@@ -101,6 +105,14 @@ export class Playing extends Phaser.Scene {
         });
 
         this.physics.add.collider(this.player, platforms);
+
+        this.physics.add.collider(this.player, hazards, (pl, hz) => {
+            this.levelReset();
+            this.score -= 10;
+            if (this.score <= 0) {
+                this.score = 0;
+            }
+        })
         
         if (this.world.collectibles) {
             this.physics.add.overlap(this.player, this.world.collectibles, (player, tile) => {
@@ -125,6 +137,7 @@ export class Playing extends Phaser.Scene {
     update(time) {
         let dt = (time - this.last_time)/1000;
         this.last_time = time;
+
         // ALL SCENE LOGIC LIVES HERE
 
         // update keyboard
@@ -138,7 +151,7 @@ export class Playing extends Phaser.Scene {
 
     nextLevel() {
         this.scene.stop("Playing");
-        this.scene.start("LevelTwo", this.score);
+        this.scene.start("LevelTwo", {score :this.score});
     }
 
     levelReset() {
@@ -149,4 +162,7 @@ export class Playing extends Phaser.Scene {
             this.player.body.setGravityY(0);
             this.player.setFlipY(false);
     }
+
+    
+
 }

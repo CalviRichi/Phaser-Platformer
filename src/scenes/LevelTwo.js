@@ -6,7 +6,7 @@ export class LevelTwo extends Phaser.Scene {
     }
 
     init(data) {
-        this.score = data[0];
+        this.score = data.score;
     }
 
     preload() {
@@ -19,6 +19,13 @@ export class LevelTwo extends Phaser.Scene {
 
         this.map = this.add.tilemap("tiles_2");
         var tileset = this.map.addTilesetImage("platformer", "tilesheet_2");
+
+        let left = this.input.keyboard.addKey("A", false, true);
+        let right = this.input.keyboard.addKey("D", false, true);
+        let jump = this.input.keyboard.addKey("SPACE", false, true);
+        let attack = this.input.keyboard.addKey("COMMA", false, true);
+        let gravityFlip = this.input.keyboard.addKey("S", false, true);
+        this.keyStates = {a: left, d: right, space: jump, comma: attack, s: gravityFlip};
             
         var ground = this.map.createLayer("ground", tileset, 0, 0);
         var decoration = this.map.createLayer("decoration", tileset, 0,0);

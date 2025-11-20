@@ -23,6 +23,10 @@ item pickups: coins (increase score by +1) and diamonds (increase player speed a
 Should use animations, will figure out more after the "juice" lecture. 
 Added particle animations for constant player movement AND explosive particle animation for switching gravity
 
+Moving platforms add some difficulty because the player does not automatically stick to them, requiring extra 
+precise input from the player.
+The dangerous spikes make level traversal significantly more difficult and encourage use of the gravity switching mechanic.
+
 OPTIONAL ELEMENTS:
 Complex Camera
 Not necessarily double jumping but gravity switch :)
