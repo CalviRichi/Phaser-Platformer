@@ -16,6 +16,9 @@ export class LevelTwo extends Phaser.Scene {
     create() {
         this.startX = 100;
         this.startY = 400;
+
+        this.map = this.add.tilemap("tiles_2");
+        var tileset = this.map.addTilesetImage("platformer", "tilesheet_2");
             
         var ground = this.map.createLayer("ground", tileset, 0, 0);
         var decoration = this.map.createLayer("decoration", tileset, 0,0);

@@ -23,8 +23,8 @@ export class Playing extends Phaser.Scene {
 
         // --------------- MAP SETUP --------------------------------
 
-        this.map = this.add.tilemap("tiles");
-        var tileset = this.map.addTilesetImage("platformer", "tilesheet");
+        this.map = this.add.tilemap("tiles_1");
+        var tileset = this.map.addTilesetImage("platformer", "tilesheet_1");
 
         let left = this.input.keyboard.addKey("A", false, true);
         let right = this.input.keyboard.addKey("D", false, true);
@@ -46,6 +46,16 @@ export class Playing extends Phaser.Scene {
 
         ground.setCollisionBetween(0,1000);
 
+        platforms.setCollisionByExclusion([-1]);
+
+        this.tweens.add({
+            targets: platforms,
+            x: '+=130',
+            duration: 2000,
+            yoyo: true,
+            repeat: -1
+        });
+        
         this.world = {ground: ground, decoration: decoration, hazards: hazards, objects: objects, platforms: platforms};
             
         this.player = new Player(this, this.startX, this.startY, "bee");
@@ -89,6 +99,8 @@ export class Playing extends Phaser.Scene {
                 this.nextLevel();
             }
         });
+
+        this.physics.add.collider(this.player, platforms);
         
         if (this.world.collectibles) {
             this.physics.add.overlap(this.player, this.world.collectibles, (player, tile) => {
