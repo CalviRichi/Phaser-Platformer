@@ -11,17 +11,19 @@ export class Playing extends Phaser.Scene {
 
     constructor() {
         super("Playing");
-        this.currentLevel = 1;
+      
     }
 
     preload() {
+        let currentLevel = this.registry.get("currentLevel") ?? 1;
         this.load.image("bee", "assets/bee.png")
         this.load.audio("coinSound", "assets/sounds/coin.mp3");
+        this.load.image("platformTexture", "assets/Tiles/tile_0047.png");
         
-        if (this.currentLevel === 1) {
+        if (currentLevel === 1) {
             this.load.image("tilesheet", "assets/tilemap_packed.png");
             this.load.tilemapTiledJSON("tiles", "assets/platformer.tmj");
-        } else if (this.currentLevel === 2) {
+        } else if (currentLevel === 2) {
             this.load.image("tilesheet", "assets/Tilemap/tilemap.png");
             this.load.tilemapTiledJSON("tiles", "assets/thelevelfile.tmj");
         }
@@ -31,7 +33,7 @@ export class Playing extends Phaser.Scene {
         this.score = 0;
 
         // --------------- MAP SETUP --------------------------------
-
+        let currentLevel = this.registry.get("currentLevel") ?? 1;
         let startX, startY;
 
         this.map = this.add.tilemap("tiles");
@@ -44,20 +46,24 @@ export class Playing extends Phaser.Scene {
         let gravityFlip = this.input.keyboard.addKey("S", false, true);
         this.keyStates = {a: left, d: right, space: jump, comma: attack, s: gravityFlip};
 
-        var ground, decoration, hazards, collectibles;
-
-        if (this.currentLevel === 1) {
-            startX = 300;
-            startY = 300;
+        var ground, decoration, hazards, collectibles, objects;
+       
+        if (currentLevel === 1) {
+            startX = 200;
+            startY = 500;
 
             ground = this.map.createLayer("ground", tileset, 0, 0);
             decoration = this.map.createLayer("decoration", tileset, 0,0);
             hazards = this.map.createLayer("danger", tileset, 0, 0);
+            collectibles = this.map.createLayer("collectibles", tileset, 0, 0);
+
 
             ground.setCollisionBetween(0,1000);
-            this.world = {ground: ground, decoration: decoration, hazards: hazards};
             
-        } else if (this.currentLevel === 2) {
+
+            this.world = {ground: ground, decoration: decoration, hazards: hazards, objects: objects, collectibles: collectibles};
+            
+        } else if (currentLevel === 2) {
             startX = 100;
             startY = 400;
             
@@ -70,8 +76,11 @@ export class Playing extends Phaser.Scene {
             this.world = {ground: ground, decoration: decoration, hazards: hazards, collectibles: collectibles};
         }
 
+
+
         this.player = new Player(this, startX, startY, "bee");
-        
+        this.player.startX = startX; this.player.startY = startY;
+       
         this.coinSound = this.sound.add("coinSound", { volume: 0.5 });
         
         this.gravityParticles = this.add.particles(0, 0, "bee", {
@@ -138,9 +147,7 @@ export class Playing extends Phaser.Scene {
             });
         }
 
-        // this.platform = this.physics.add.staticGroup();
-        // this.platform.create(400,500,sprite);
-        // this.physics.add.collider(player, platform)
+      
     }
 
     update(time) {
@@ -150,21 +157,22 @@ export class Playing extends Phaser.Scene {
 
         // update keyboard
         this.player.update(this.keyStates);
+
+        
         
         if (this.player.y > 1000 || this.player.y < 0 || this.player.x < 0) {
-            this.player.x = 100;
-            this.player.y = 400;
-            this.player.body.setVelocity(0, 0);
-            this.player.gravityFlipped = false;
-            this.player.body.setGravityY(0);
-            this.player.setFlipY(false);
+            this.levelReset();
         }
         
     }
 
     nextLevel() {
-        this.currentLevel++;
-        if (this.currentLevel > 2) {
+        let level = this.registry.get("currentLevel");
+        this.registry.set("currentLevel", level + 1);
+        level += 1;
+
+        
+        if (level > 2) {
             this.registry.set('finalScore', this.score);
             this.scene.stop("Playing");
             this.scene.start("End");
@@ -172,5 +180,14 @@ export class Playing extends Phaser.Scene {
         }
 
         this.scene.restart();
+    }
+
+    levelReset() {
+            this.player.x = this.player.startX;
+            this.player.y = this.player.startY;
+            this.player.body.setVelocity(0, 0);
+            this.player.gravityFlipped = false;
+            this.player.body.setGravityY(0);
+            this.player.setFlipY(false);
     }
 }
